@@ -71,7 +71,7 @@ echo "unix_sock_rw_perms = \"0777\"" >> /etc/libvirt/libvirtd.conf
 systemctl restart libvirtd > /dev/null 2>&1
 
 # Set Password for oneadmin
-echo -e "$PASS\n$PASS" | passwd oneadmin
+echo -e "$PASS\n$PASS" | passwd oneadmin > /dev/null 2>&1
 
 echo -ne "Progress [==========]\n"
 echo "Done!"
