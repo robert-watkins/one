@@ -26,6 +26,13 @@ echo "|_______||___|    |_______||_|  |__||_|  |__||_______||_______||_______||_
 echo "Node Installer v1.0 "
 echo "##########################################################################################";
 
+echo "This might also take a while."
+if [ -z "$PASS"]; then
+    read -sp "For now lets set the oneadmin password: " PASS
+    echo " "
+fi
+echo "Now we wait..."
+
 echo -ne "Progress [=         ]\r"
 
 # Disable Selinux
@@ -62,6 +69,10 @@ sed -i "/unix_sock_rw_perms =/d" /etc/libvirt/libvirtd.conf
 echo "unix_sock_group = \"oneadmin\"" >> /etc/libvirt/libvirtd.conf
 echo "unix_sock_rw_perms = \"0777\"" >> /etc/libvirt/libvirtd.conf
 systemctl restart libvirtd > /dev/null 2>&1
+
+# Set Password for oneadmin
+echo -e "$PASS\n$PASS" | passwd oneadmin
+
 echo -ne "Progress [==========]\n"
 echo "Done!"
 echo "Now you have to connect them. Good luck!"
